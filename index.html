@@ -1,0 +1,55 @@
+﻿
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>福井映画</title>
+</head><body>
+<h1>福井映画</h1>
+
+<main id=main></main>
+
+<hr>
+<a href=list.html>オープンデータ（一覧）</a><br>
+<a href=https://github.com/code4fukui/fukui-movie-fes/>src on GitHub</a>
+
+
+
+<script type="module">
+import { CSV } from "https://js.sabae.cc/CSV.js";
+
+const data = await CSV.fetchJSON("./fukui-movie-fes_2024.csv");
+const cr = (tag, parent) => {
+  const c = document.createElement(tag);
+  if (parent) parent.appendChild(c);
+  return c;
+};
+for (const d of data) {
+  const div = cr("div", main);
+  cr("img", div).setAttribute("src", d.image);
+  cr("div", div).textContent = d.title;
+}
+</script>
+
+<style>
+body {
+  background-color: black;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+main > div {
+  display: inline-block;
+  margin: 1em;
+  padding: 1em;
+  background-color: #f8f8f8;
+  border-radius: .1em;
+  text-align: center;
+  color: black;
+}
+img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+}
+a {
+  color: gray !important;
+}
+</style>
